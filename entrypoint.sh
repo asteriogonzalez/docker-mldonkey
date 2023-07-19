@@ -30,20 +30,20 @@ fi
 # Checking if mldonkey has been already configured
 if [ ! -f /var/lib/mldonkey/downloads.ini ]; then
     echo ">> Setting permissions for /var/lib/mldonkey"
-    chown mldonkey:mldonkey /var/lib/mldonkey
+    mkdir -p /var/lib/mldonkey/temp
+    chown -R mldonkey:mldonkey /var/lib/mldonkey
 
     echo ">> Starting mldonkey server for 1st time ..."
     su mldonkey -c 'mldonkey' &
 
     echo ">> Waiting for mldonkey to start..."
-    sleep 1
+    sleep 3
     echo ">> Configuring mldonkey"
     if [ ! -z "$MLDONKEY_ALLOWED_IPS" ]; then
         echo ">> Allowing connecting from $MLDONKEY_ALLOWED_IPS"
-        echo "/usr/lib/mldonkey/mldonkey_command  'set allowed_ips ${MLDONKEY_ALLOWED_IPS}'"
-
-        su mldonkey -c "/usr/lib/mldonkey/mldonkey_command  'set allowed_ips ${MLDONKEY_ALLOWED_IPS}'"
-        sleep 1
+        echo "/usr/lib/mldonkey/mldonkey_command  set allowed_ips ${MLDONKEY_ALLOWED_IPS}"
+        su mldonkey -c "/usr/lib/mldonkey/mldonkey_command  set allowed_ips ${MLDONKEY_ALLOWED_IPS}"
+        sleep 2
     fi
 
     # export MLDONKEY_ADMIN_PASSWORD
@@ -64,8 +64,8 @@ if [ ! -f /var/lib/mldonkey/downloads.ini ]; then
                 echo "  + server.met: $link"
                 echo "/usr/lib/mldonkey/mldonkey_command urladd server.met $link"
                 su mldonkey -c "/usr/lib/mldonkey/mldonkey_command urladd server.met $link"
+                sleep 2
             done
-        sleep 1
         echo ">> connecting to more servers..."
         su mldonkey -c '/usr/lib/mldonkey/mldonkey_command  c'
     fi
@@ -75,8 +75,8 @@ if [ ! -f /var/lib/mldonkey/downloads.ini ]; then
                 echo "  + adding $link"
                 echo "/usr/lib/mldonkey/mldonkey_command '$link'"
                 su mldonkey -c "/usr/lib/mldonkey/mldonkey_command '$link'"
+                sleep 2
             done
-        sleep 1
         echo ">> connecting to more servers..."
         su mldonkey -c '/usr/lib/mldonkey/mldonkey_command  c'
     fi

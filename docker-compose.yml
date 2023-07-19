@@ -12,7 +12,7 @@ services:
     env_file: env
     volumes:
     - ./data:/var/lib/mldonkey
-    - ./temp:/var/lib/mldonkey/temp
+    #- ./temp:/var/lib/mldonkey/temp
     ports:
     - "0.0.0.0:4000:4000"
     - "0.0.0.0:4001:4001"
