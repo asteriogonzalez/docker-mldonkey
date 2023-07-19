@@ -15,8 +15,9 @@ Based on carlonluca/mldonkey docker image and carlonluca/docker-mldonkey compose
 
 Changes:
 
-- skip using "-p" option for mldonkey_command as seems do not accept the parameter.
-- fix 'temp' error in the 1st initialization phase.
-- add extra servers and server.met
- 
+- skip using `"-p"` option for `mldonkey_command`. It looks like do not accept the parameter, despite the documentation supports `"-p"` option.
+- another approach to fix 'temp' fodler error during the 1st initialization phase.
+- add extra servers and server.met options in `env` file.
+
+
 
