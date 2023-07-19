@@ -8,7 +8,7 @@ RUN \
         libminiupnpc-dev librsvg2-dev libgtk2.0-dev liblablgtk2-ocaml-dev liblablgtk2-gl-ocaml-dev liblablgtk2-gnome-ocaml-dev && \
     git clone https://github.com/carlonluca/mldonkey.git && \
     cd mldonkey && \
-    git checkout no-cl-dup && \
+    #git checkout no-cl-dup && \
     mkdir -p patches && \
     ./configure --prefix=$PWD/out --enable-batch --enable-upnp-natpmp --disable-gnutella --disable-gnutella2 --enable-gui=newgui2 && \
     make -j1 && \
@@ -37,7 +37,7 @@ COPY --from=builder /mldonkey/out/bin/* /usr/bin/
 COPY --from=builder /mldonkey/distrib/mldonkey_command /usr/lib/mldonkey/
 
 ENV MLDONKEY_DIR=/var/lib/mldonkey LC_ALL=C.UTF-8 LANG=C.UTF-8
-VOLUME /var/lib/mldonkey
-EXPOSE 4000 4080 19040 19044
+VOLUME ["/var/lib/mldonkey", "/var/lib/mldonkey/temp"]
+EXPOSE 4000 4001 4080 19040 19044
 ADD entrypoint.sh /
 CMD /entrypoint.sh
