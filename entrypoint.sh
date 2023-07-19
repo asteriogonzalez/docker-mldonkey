@@ -43,7 +43,7 @@ if [ ! -f /var/lib/mldonkey/downloads.ini ]; then
         echo "/usr/lib/mldonkey/mldonkey_command  'set allowed_ips ${MLDONKEY_ALLOWED_IPS}'"
 
         su mldonkey -c "/usr/lib/mldonkey/mldonkey_command  'set allowed_ips ${MLDONKEY_ALLOWED_IPS}'"
-        sleep 20
+        sleep 1
     fi
 
     # export MLDONKEY_ADMIN_PASSWORD
